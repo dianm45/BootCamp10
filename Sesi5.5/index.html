@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DianStore - E-Commerce</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-bag-heart-fill"></i>
+                Dian<span>Store</span>
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+
+                <ul class="navbar-nav ms-4 me-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Beranda
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#products">
+                            Produk
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#categories">
+                            Kategori
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">
+                            Tentang
+                        </a>
+                    </li>
+
+                </ul>
+
+                <!-- Navbar Search -->
+                <div class="navbar-search me-3">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        type="text"
+                        id="navbarSearch"
+                        placeholder="Cari produk..."
+                    >
+
+                </div>
+
+                <!-- Wishlist -->
+                <button class="icon-button">
+                    <i class="bi bi-heart"></i>
+                    <span class="icon-badge">0</span>
+                </button>
+
+                <!-- Cart -->
+                <button
+                    class="icon-button cart-button"
+                    id="cartButton"
+                    type="button"
+                >
+                    <i class="bi bi-cart3"></i>
+                    <span
+                        class="icon-badge"
+                        id="cartCount"
+                    >
+                        0
+                    </span>
+                </button>
+
+                <!-- Profile -->
+                <button class="icon-button">
+                    <i class="bi bi-person-circle"></i>
+                </button>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero-section">
+
+        <div class="container">
+
+            <div class="hero-box">
+
+                <div class="hero-content">
+
+                    <span class="hero-badge">
+                        ✨ Belanja Lebih Mudah
+                    </span>
+
+                    <h1>
+                        Temukan Produk
+                        <span>Favoritmu</span>
+                    </h1>
+
+                    <p>
+                        Berbagai pilihan elektronik, fashion,
+                        buku, kebutuhan rumah, dan masih banyak
+                        lagi dengan harga terbaik.
+                    </p>
+
+                    <a
+                        href="#products"
+                        class="btn btn-primary hero-button"
+                    >
+                        Belanja Sekarang
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </div>
+
+                <div class="hero-decoration">
+
+                    <i class="bi bi-laptop"></i>
+                    <i class="bi bi-headphones"></i>
+                    <i class="bi bi-camera"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="container main-content">
+
+        <div class="row g-4">
+
+            <!-- =========================
+                 SIDEBAR FILTER
+            ========================== -->
+
+            <aside class="col-lg-3">
+
+                <div class="filter-box">
+
+                    <div class="filter-header">
+
+                        <h4>
+                            <i class="bi bi-sliders"></i>
+                            Filter Produk
+                        </h4>
+
+                        <button
+                            id="resetFilter"
+                            class="reset-button"
+                        >
+                            Reset
+                        </button>
+
+                    </div>
+
+
+                    <!-- Search -->
+                    <div class="filter-group">
+
+                        <label>
+                            Cari Nama / Deskripsi
+                        </label>
+
+                        <div class="filter-search">
+
+                            <i class="bi bi-search"></i>
+
+                            <input
+                                type="text"
+                                id="searchInput"
+                                placeholder="Kata kunci..."
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Category -->
+                    <div
+                        class="filter-group"
+                        id="categories"
+                    >
+
+                        <label>
+                            Kategori
+                        </label>
+
+                        <select
+                            id="categoryFilter"
+                            class="form-select"
+                        >
+
+                            <option value="all">
+                                Semua Kategori
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Price -->
+                    <div class="filter-group">
+
+                        <label>
+                            Maksimum Harga
+                        </label>
+
+                        <input
+                            type="range"
+                            class="form-range"
+                            id="priceRange"
+                            min="0"
+                            max="10000000"
+                            step="50000"
+                            value="10000000"
+                        >
+
+                        <div class="price-range-text">
+
+                            <span>
+                                Rp 0
+                            </span>
+
+                            <strong id="priceValue">
+                                Rp 10.000.000
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Sort -->
+                    <div class="filter-group">
+
+                        <label>
+                            Urutkan
+                        </label>
+
+                        <select
+                            id="sortFilter"
+                            class="form-select"
+                        >
+
+                            <option value="default">
+                                Rekomendasi
+                            </option>
+
+                            <option value="name-asc">
+                                Nama A - Z
+                            </option>
+
+                            <option value="name-desc">
+                                Nama Z - A
+                            </option>
+
+                            <option value="price-low">
+                                Harga Terendah
+                            </option>
+
+                            <option value="price-high">
+                                Harga Tertinggi
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- =========================
+                 PRODUCT AREA
+            ========================== -->
+
+            <section
+                class="col-lg-9"
+                id="products"
+            >
+
+                <!-- Product Toolbar -->
+
+                <div class="product-toolbar">
+
+                    <div>
+
+                        <strong>
+                            Menampilkan
+                            <span id="productCount">
+                                50
+                            </span>
+                            produk
+                        </strong>
+
+                    </div>
+
+                    <div class="toolbar-right">
+
+                        <span>
+                            Urutkan:
+                        </span>
+
+                        <select
+                            id="sortFilterTop"
+                            class="form-select form-select-sm"
+                        >
+
+                            <option value="default">
+                                Rekomendasi
+                            </option>
+
+                            <option value="name-asc">
+                                Nama A - Z
+                            </option>
+
+                            <option value="name-desc">
+                                Nama Z - A
+                            </option>
+
+                            <option value="price-low">
+                                Harga Terendah
+                            </option>
+
+                            <option value="price-high">
+                                Harga Tertinggi
+                            </option>
+
+                        </select>
+
+                        <button class="view-button active">
+                            <i class="bi bi-grid-3x3-gap"></i>
+                        </button>
+
+                        <button class="view-button">
+                            <i class="bi bi-list"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product List -->
+
+                <div
+                    id="productList"
+                    class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4"
+                >
+
+                    <!-- Produk dari JavaScript -->
+
+                </div>
+
+
+                <!-- Empty -->
+
+                <div
+                    id="emptyMessage"
+                    class="empty-message d-none"
+                >
+
+                    <i class="bi bi-search"></i>
+
+                    <h4>
+                        Produk tidak ditemukan
+                    </h4>
+
+                    <p>
+                        Coba gunakan kata kunci atau filter
+                        yang berbeda.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         CART SIDEBAR
+    ========================== -->
+
+    <div
+        class="cart-overlay"
+        id="cartOverlay"
+    ></div>
+
+    <aside
+        class="cart-sidebar"
+        id="cartSidebar"
+    >
+
+        <div class="cart-header">
+
+            <h3>
+                <i class="bi bi-cart3"></i>
+                Keranjang Belanja
+                (<span id="cartHeaderCount">0</span>)
+            </h3>
+
+            <button
+                id="closeCart"
+                class="close-cart"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+        </div>
+
+
+        <div
+            class="cart-items"
+            id="cartItems"
+        >
+
+            <div class="cart-empty">
+
+                <i class="bi bi-cart-x"></i>
+
+                <h5>
+                    Keranjang masih kosong
+                </h5>
+
+                <p>
+                    Yuk pilih produk favoritmu.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="cart-footer">
+
+            <div class="cart-summary">
+
+                <div>
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong id="cartSubtotal">
+                        Rp 0
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        Ongkos Kirim
+                    </span>
+
+                    <strong>
+                        Rp 15.000
+                    </strong>
+                </div>
+
+                <hr>
+
+                <div class="cart-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="cartTotal">
+                        Rp 0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button class="checkout-button">
+
+                <i class="bi bi-bag-check"></i>
+
+                Checkout
+
+            </button>
+
+            <button class="view-cart-button">
+
+                Lihat Keranjang
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer id="about">
+
+        <div class="container text-center">
+
+            <h5>
+                <i class="bi bi-bag-heart-fill"></i>
+                DianStore
+            </h5>
+
+            <p>
+                Temukan produk favoritmu dengan mudah.
+            </p>
+
+            <small>
+                &copy; 2026 DianStore. All rights reserved.
+            </small>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- Custom JS -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
