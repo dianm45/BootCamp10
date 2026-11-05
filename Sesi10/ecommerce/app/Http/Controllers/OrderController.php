@@ -14,11 +14,17 @@ class OrderController extends Controller
 
         return view('cart.index', compact('cart'));
     }
-
     public function checkout()
-    {
-        return view('checkout.index');
+{
+    $cart = session()->get('cart', []);
+
+    if (empty($cart)) {
+        return redirect()->route('cart')
+            ->with('error', 'Keranjang masih kosong.');
     }
+
+    return view('checkout.index', compact('cart'));
+}
 
     public function addToCart($id)
     {

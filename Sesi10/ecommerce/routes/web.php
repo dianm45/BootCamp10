@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Product;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
-    return view('home.index');
+    $products = Product::latest()->take(4)->get();
+
+    return view('home.index', compact('products'));
 });
 
 Route::get('/products', [ProductController::class, 'index'])

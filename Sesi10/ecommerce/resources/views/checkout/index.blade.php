@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - DianStore</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,11 +52,29 @@
     </style>
 </head>
 <body>
+    @include('components.navbar')
     <a href="/">← Kembali ke Beranda</a>
 
     <h1>Checkout</h1>
 
     <div class="checkout">
+        <h3>Ringkasan Pesanan</h3>
+
+@foreach ($cart as $id => $item)
+    <div style="padding: 10px 0; border-bottom: 1px solid #ddd;">
+        <strong>{{ $item['name'] }}</strong>
+        <p>Jumlah: {{ $item['quantity'] }}</p>
+        <p>
+            Subtotal:
+            Rp {{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}
+        </p>
+    </div>
+@endforeach
+
+<h4>
+    Total:
+    Rp {{ number_format(collect($cart)->sum(fn ($item) => $item['price'] * $item['quantity']), 0, ',', '.') }}
+</h4>
         <p>Lengkapi informasi berikut untuk melanjutkan pesanan.</p>
 
         <form action="{{ route('checkout.process') }}" method="POST">
@@ -72,5 +91,7 @@
            <button type="submit">Buat Pesanan</button>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @include('components.footer')
 </body>
 </html>

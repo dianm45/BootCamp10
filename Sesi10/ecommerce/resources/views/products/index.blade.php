@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Produk - DianStore</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,9 +39,16 @@
     </style>
 </head>
 <body>
+    @include('components.navbar')
     <a href="/">← Kembali ke Beranda</a>
-    <h1>Daftar Produk DianStore</h1>
-    <p>Temukan produk yang kamu butuhkan.</p>
+
+@if (session('success'))
+    <div style="background: #dcfce7; color: #166534; padding: 15px; margin-top: 15px; border-radius: 8px;">
+        {{ session('success') }}
+    </div>
+@endif
+
+<h1>Daftar Produk DianStore</h1>
 
     <div class="products">
         @forelse ($products as $product)
@@ -63,5 +71,9 @@
             <p>Belum ada produk. Silakan tambahkan data produk ke database.</p>
         @endforelse
     </div>
+    @include('components.footer')
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </body>
 </html>

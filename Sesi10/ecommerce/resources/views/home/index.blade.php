@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         * {
@@ -18,7 +19,7 @@
             color: #263238;
         }
 
-        nav {
+       nav {
             background: #2563eb;
             color: white;
             padding: 20px 8%;
@@ -35,6 +36,18 @@
             color: white;
             text-decoration: none;
             margin-left: 20px;
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul li {
+            margin: 0;
+            padding: 0;
         }
 
         .hero {
@@ -174,14 +187,7 @@
 </head>
 
 <body>
-    <nav>
-        <h2>DianStore</h2>
-        <div>
-            <a href="/">Home</a>
-            <a href="/products">Produk</a>
-            <a href="/cart">Keranjang</a>
-        </div>
-    </nav>
+    @include('components.navbar')
 
     <section class="hero">
         <h1>Belanja Jadi Lebih Mudah!</h1>
@@ -206,38 +212,33 @@
         <h2>Produk Pilihan</h2>
 
         <div class="products">
-            <div class="product">
-                <div class="product-image">🎧</div>
-                <h3>Headphone Bluetooth</h3>
-                <p>Headphone nyaman untuk mendengarkan musik.</p>
-                <div class="price">Rp250.000</div>
-                <a href="/products" class="buy">Lihat Produk</a>
+    @forelse ($products as $product)
+        <div class="product">
+            <div class="product-image">🛍️</div>
+
+            <h3>{{ $product->name }}</h3>
+
+            <p>{{ $product->description }}</p>
+
+            <div class="price">
+                Rp{{ number_format($product->price, 0, ',', '.') }}
             </div>
 
-            <div class="product">
-                <div class="product-image">⌚</div>
-                <h3>Smartwatch</h3>
-                <p>Jam pintar untuk aktivitas sehari-hari.</p>
-                <div class="price">Rp450.000</div>
-                <a href="/cart" class="buy">Lihat Produk</a>
-            </div>
+            <p>Stok: {{ $product->stock }}</p>
 
-            <div class="product">
-                <div class="product-image">👕</div>
-                <h3>Kaos Basic</h3>
-                <p>Kaos simpel untuk gaya kasual.</p>
-                <div class="price">Rp85.000</div>
-                <a href="/cart" class="buy">Lihat Produk</a>
-            </div>
-
-            <div class="product">
-                <div class="product-image">📚</div>
-                <h3>Buku HTML dan CSS</h3>
-                <p>Buku belajar dasar pengembangan web.</p>
-                <div class="price">Rp120.000</div>
-                <a href="/cart" class="buy">Lihat Produk</a>
-            </div>
+            <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="buy">
+                    Tambah ke Keranjang
+                </button>
+            </form>
         </div>
+    @empty
+        <p>Belum ada produk tersedia.</p>
+    @endforelse
+</div>
     </main>
+    @include('components.footer')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
